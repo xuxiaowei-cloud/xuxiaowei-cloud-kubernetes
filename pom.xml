@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cloud.xuxiaowei</groupId>
+    <artifactId>xuxiaowei-cloud-starter-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>xuxiaowei-cloud-starter-parent</name>
+    <description>徐晓伟微服务父模块</description>
+    <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-kubernetes</url>
+    <inceptionYear>2022</inceptionYear>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Spring Boot 依赖 -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies -->
+        <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/boot/spring-boot-starter-parent -->
+        <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/boot/spring-boot-dependencies -->
+        <!-- https://repo.spring.io/ui/native/milestone/org/springframework/boot/spring-boot-starter-parent -->
+        <!-- https://repo.spring.io/ui/native/milestone/org/springframework/boot/spring-boot-dependencies -->
+        <!-- https://github.com/spring-projects/spring-boot -->
+        <!-- https://github.com/FasterXML/jackson-databind -->
+        <!-- https://github.com/FasterXML/jackson-core -->
+        <!-- https://github.com/FasterXML/jackson-annotations -->
+        <!-- https://github.com/FasterXML/jackson-dataformat-xml -->
+        <!-- https://github.com/FasterXML/jackson-annotations -->
+        <!-- https://github.com/FasterXML/jackson-datatype-jsr310 -->
+        <!-- https://github.com/FasterXML/jackson-dataformats-text -->
+        <!-- https://github.com/FasterXML/jackson-dataformat-yaml -->
+        <!-- https://github.com/FasterXML/jackson-dataformat-properties -->
+        <!-- https://github.com/FasterXML/jackson-dataformat-ini -->
+        <spring-boot.version>2.7.8</spring-boot.version>
+        <!-- Spring Cloud 依赖 -->
+        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
+        <!-- https://oss.sonatype.org/content/repositories/public/org/springframework/cloud/spring-cloud-dependencies -->
+        <!-- https://repo.spring.io/ui/native/milestone/org/springframework/cloud/spring-cloud-dependencies -->
+        <!-- https://github.com/spring-cloud -->
+        <!-- https://github.com/spring-cloud/spring-cloud-gateway -->
+        <!-- https://github.com/spring-cloud/spring-cloud-openfeign -->
+        <!-- https://github.com/spring-cloud/spring-cloud-circuitbreaker -->
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+        <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
+        <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+        <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+        <!-- https://mvnrepository.com/artifact/pl.project13.maven/git-commit-id-plugin -->
+        <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+        <!-- https://mvnrepository.com/artifact/io.spring.javaformat/spring-javaformat-maven-plugin -->
+        <!-- https://github.com/spring-io/spring-javaformat/ -->
+        <!-- 高版本支持 JDK 8：https://github.com/spring-io/spring-javaformat/#java-8-support -->
+        <spring-javaformat-maven-plugin.version>0.0.35</spring-javaformat-maven-plugin.version>
+
+        <!-- 打包时跳过单元测试 -->
+        <skipTests>true</skipTests>
+
+    </properties>
+
+    <modules>
+        <!-- 网关服务 -->
+        <module>gateway</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot 依赖控制 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Cloud 依赖控制 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+        <license>
+            <name>996.ICU</name>
+            <url>https://github.com/996icu/996.ICU/blob/master/LICENSE</url>
+            <distribution>repo</distribution>
+            <comments>The name 996.ICU refers to "Work by '996', sick in ICU", an ironic saying among Chinese
+                developers, which means that by following the "996" work schedule, you are risking yourself getting into
+                the ICU (Intensive Care Unit).
+            </comments>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-kubernetes</url>
+        <connection>scm:git:https://git@github.com/xuxiaowei-cloud/xuxiaowei-cloud-kubernetes.git</connection>
+        <developerConnection>http://xuxiaowei.com.cn</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <system>Github</system>
+        <url>https://github.com/xuxiaowei-cloud/xuxiaowei-cloud-kubernetes/issues</url>
+    </issueManagement>
+
+    <organization>
+        <name>徐晓伟工作室</name>
+        <url>http://xuxiaowei.com.cn</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>徐晓伟</name>
+            <email>xuxiaowei@xuxiaowei.com.cn</email>
+            <organization>徐晓伟工作室</organization>
+            <organizationUrl>http://xuxiaowei.com.cn</organizationUrl>
+        </developer>
+    </developers>
+
+    <build>
+
+        <!-- mvn clean lombok:delombok -->
+        <!-- mvn source:jar javadoc:jar deploy -DskipTests -->
+
+        <plugins>
+
+            <!-- mvn clean deploy -DskipTests -->
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+            </plugin>
+
+            <!-- mvn clean source:jar deploy -->
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-source-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+            </plugin>
+
+
+            <!-- mvn lombok:delombok -->
+            <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-maven-plugin -->
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <version>${lombok-maven-plugin.version}</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <sourceDirectory>src/main/java</sourceDirectory>
+                    <outputDirectory>target/sources/delombok</outputDirectory>
+                    <addOutputDirectory>false</addOutputDirectory>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>delombok</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- mvn lombok:delombok -->
+            <!-- mvn javadoc:jar deploy -->
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <configuration>
+                    <sourcepath>target/sources/delombok</sourcepath>
+                    <encoding>UTF-8</encoding>
+                    <charset>UTF-8</charset>
+                    <docencoding>UTF-8</docencoding>
+                    <!--<doclint>none</doclint>-->
+                </configuration>
+            </plugin>
+
+            <!-- https://mvnrepository.com/artifact/pl.project13.maven/git-commit-id-plugin -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>${git-commit-id-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>get-the-git-infos</id>
+                        <goals>
+                            <!-- 父子项目必须添加 -->
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- 父子项目必须添加 -->
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <offline>true</offline>
+                    <!-- 输出详细内容 -->
+                    <!--<verbose>true</verbose>-->
+                    <dateFormatTimeZone>${user.timezone}</dateFormatTimeZone>
+                    <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+                    <format>json</format>
+                    <generateGitPropertiesFilename>${project.build.outputDirectory}/git.json
+                    </generateGitPropertiesFilename>
+                </configuration>
+            </plugin>
+
+            <!--
+                ./mvnw spring-javaformat:apply
+                mvn spring-javaformat:apply
+                高版本支持 JDK 8：https://github.com/spring-io/spring-javaformat/#java-8-support
+             -->
+            <!-- https://mvnrepository.com/artifact/io.spring.javaformat/spring-javaformat-maven-plugin -->
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>${spring-javaformat-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <inherited>true</inherited>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+        </plugins>
+    </build>
+
+    <profiles>
+
+        <profile>
+            <!-- 使用 -Paliyun 激活阿里云仓库下载依赖 -->
+            <id>aliyun</id>
+            <repositories>
+                <repository>
+                    <id>aliyun</id>
+                    <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
+                </repository>
+            </repositories>
+        </profile>
+
+        <profile>
+            <!-- 使用 -Ptencentyun 激活腾讯云仓库下载依赖 -->
+            <id>tencentyun</id>
+            <repositories>
+                <repository>
+                    <id>tencentyun</id>
+                    <url>https://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+                </repository>
+            </repositories>
+        </profile>
+
+        <profile>
+            <!-- 使用 -Pgpg 激活此构建进行文件签名 -->
+            <id>gpg</id>
+            <build>
+                <plugins>
+                    <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-gpg-plugin -->
+                    <!-- 安装：https://www.gpg4win.org/thanks-for-download.html -->
+                    <!--
+                        1、新建密钥对
+                        2、生成密钥对副本
+                        3、上传公钥至目录服务器（手动上传（需要验证邮箱）：https://keys.openpgp.org/upload/）
+                     -->
+                    <!--
+                        单个文件签名：
+                        gpg &#45;&#45;armor &#45;&#45;detach-sign 文件名
+                     -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <!-- 使用 -Pexec 激活此构建打包可执行 jar 包 -->
+            <id>exec</id>
+            <build>
+                <finalName>${project.artifactId}-${project.version}-exec</finalName>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>${spring-boot.version}</version>
+                        <!-- 打包为 Spring Boot jar -->
+                        <executions>
+                            <execution>
+                                <id>repackage</id>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <excludes>
+                                <exclude>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                </exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+
+    <repositories>
+
+        <!-- 如果使用浏览器访问时，需要添加域名才有结果 -->
+        <repository>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/content/repositories/public/</url>
+        </repository>
+
+        <repository>
+            <id>oss-s01</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/public/</url>
+        </repository>
+
+    </repositories>
+
+</project>
