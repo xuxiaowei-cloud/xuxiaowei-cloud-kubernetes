@@ -129,6 +129,11 @@
   </a>
 </div>
 
+## 说明
+
+1. 启动项目会读取环境的的 `KUBECONFIG` 对应的文件地址 和 当前用户的 `.kube/config` 文件，进行配置 k8s
+   相关地址与认证证书，环境变量的优先级高于当前用户的文件
+
 ## 参考文档
 
 1. [spring-cloud-kubernetes docs](https://docs.spring.io/spring-cloud-kubernetes/docs/)
