@@ -132,7 +132,86 @@
 ## 说明
 
 1. <div style="color: red">本项目是使用 Kubernetes 作为微服务的注册与配置中心（替换 Nacos 等常用的配置与注册中心），需要配置 Kubernetes 才能进行开发与部署</div>
-2. 项目配置 k8s
+2. 创建 spring-cloud-kubernetes-discoveryserver
+    ```yaml
+    apiVersion: v1
+    kind: List
+    items:
+      - apiVersion: v1
+        kind: Service
+        metadata:
+          labels:
+            app: spring-cloud-kubernetes-discoveryserver
+          name: spring-cloud-kubernetes-discoveryserver
+        spec:
+          ports:
+            - name: http
+              port: 80
+              targetPort: 8761
+          selector:
+            app: spring-cloud-kubernetes-discoveryserver
+          # 与官方网站不同
+          type: NodePort
+      - apiVersion: v1
+        kind: ServiceAccount
+        metadata:
+          labels:
+            app: spring-cloud-kubernetes-discoveryserver
+          name: spring-cloud-kubernetes-discoveryserver
+      - apiVersion: rbac.authorization.k8s.io/v1
+        kind: RoleBinding
+        metadata:
+          labels:
+            app: spring-cloud-kubernetes-discoveryserver
+          name: spring-cloud-kubernetes-discoveryserver:view
+        roleRef:
+          kind: Role
+          apiGroup: rbac.authorization.k8s.io
+          name: namespace-reader
+        subjects:
+          - kind: ServiceAccount
+            name: spring-cloud-kubernetes-discoveryserver
+      - apiVersion: rbac.authorization.k8s.io/v1
+        kind: Role
+        metadata:
+          namespace: default
+          name: namespace-reader
+        rules:
+          - apiGroups: ["", "extensions", "apps"]
+            resources: ["services", "endpoints"]
+            verbs: ["get", "list", "watch"]
+      - apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: spring-cloud-kubernetes-discoveryserver-deployment
+        spec:
+          selector:
+            matchLabels:
+              app: spring-cloud-kubernetes-discoveryserver
+          template:
+            metadata:
+              labels:
+                app: spring-cloud-kubernetes-discoveryserver
+            spec:
+              serviceAccount: spring-cloud-kubernetes-discoveryserver
+              containers:
+              - name: spring-cloud-kubernetes-discoveryserver
+                # 此处的镜像版本根据自己的情况选择：https://hub.docker.com/r/springcloud/spring-cloud-kubernetes-discoveryserver
+                image: springcloud/spring-cloud-kubernetes-discoveryserver:2.1.5
+                imagePullPolicy: IfNotPresent
+                readinessProbe:
+                  httpGet:
+                    port: 8761
+                    path: /actuator/health/readiness
+                livenessProbe:
+                  httpGet:
+                    port: 8761
+                    path: /actuator/health/liveness
+                ports:
+                - containerPort: 8761
+    ```
+
+3. 项目配置 k8s
     1. 方式一：
         1. 启动项目会读取环境的的 `KUBECONFIG` 对应的文件地址 和 当前用户的 `.kube/config` 文件，进行配置 k8s
            相关地址与认证证书，环境变量的优先级高于当前用户的文件。
@@ -149,7 +228,7 @@
                ca.crt、namespace、token
             2. Windows 开发：在项目所在磁盘的根目录，创建文件夹 /var/run/secrets/kubernetes.io/serviceaccount，并在里面添加文件
                ca.crt、namespace、token
-3. 启动项目时有错误日志（未完成）
+4. 启动项目时有错误日志（未完成）
 
 ## 参考文档
 
