@@ -134,6 +134,17 @@
 1. <div style="color: red">本项目是使用 Kubernetes 作为微服务的注册与配置中心（替换 Nacos 等常用的配置与注册中心），需要配置 Kubernetes 才能进行开发与部署</div>
 2. 启动项目会读取环境的的 `KUBECONFIG` 对应的文件地址 和 当前用户的 `.kube/config` 文件，进行配置 k8s
    相关地址与认证证书，环境变量的优先级高于当前用户的文件
+3. 配置环境变量（在k8s中部署时，不需要关心：k8s创建pod的时候，会自动添加下列环境变量，代码参见：io.kubernetes:client-java!io.kubernetes.client.util.Config）
+    1. KUBERNETES_SERVICE_HOST
+        1. k8s IP（当前能直接访问的IP）
+    2. KUBERNETES_SERVICE_PORT
+        1. pod 内访问时使用的是 443，pod 外部（比如开发环境等）访问时，一般是默认值 6443
+4. 配置证书等信息（在k8s中部署时，不需要关心：k8s创建pod的时候，会自动添加下列文件，代码参见：io.kubernetes:client-java!io.kubernetes.client.util.Config）
+    1. Linux 开发
+        1. 创建文件夹 /var/run/secrets/kubernetes.io/serviceaccount，并在里面添加文件 ca.crt、namespace、token
+    2. Windows 开发
+        1. 在项目所在磁盘的根目录，创建文件夹 /var/run/secrets/kubernetes.io/serviceaccount，并在里面添加文件
+           ca.crt、namespace、token
 
 ## 参考文档
 
