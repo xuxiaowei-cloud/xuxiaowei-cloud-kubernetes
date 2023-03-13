@@ -129,6 +129,11 @@
   </a>
 </div>
 
+## 说明
+
+1. <div style="color: red">本项目是使用 Kubernetes 作为微服务的注册与配置中心（替换 Nacos 等常用的配置与注册中心），需要配置 Kubernetes 才能进行开发与部署</div>
+2. 启动项目会读取环境的的 `KUBECONFIG` 对应的文件地址 和 当前用户的 `.kube/config` 文件，进行配置 k8s
+   相关地址与认证证书，环境变量的优先级高于当前用户的文件
 
 ## Stargazers over time
 
