@@ -76,6 +76,8 @@
     <modules>
         <!-- 网关服务 -->
         <module>gateway</module>
+        <!-- 登录服务 -->
+        <module>passport</module>
     </modules>
 
     <dependencyManagement>
