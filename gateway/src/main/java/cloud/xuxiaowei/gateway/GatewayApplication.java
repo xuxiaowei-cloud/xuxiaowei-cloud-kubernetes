@@ -51,7 +51,7 @@ public class GatewayApplication {
 	@GetMapping
 	public List<String> index() {
 		List<String> services = discoveryClient.getServices();
-		for (String service: services) {
+		for (String service : services) {
 			log.info(service);
 		}
 		return services;
